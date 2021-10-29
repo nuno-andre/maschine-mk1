@@ -1,8 +1,8 @@
 from _Framework.SubjectSlot import subject_slot
 from _Framework.InputControlElement import MIDI_NOTE_OFF_STATUS, MIDI_NOTE_ON_STATUS
 
-from .MIDI_Map import AUTO_NAME, DEFAULT_DRUM_COLOR, PAD_MODE, PAD_TRANSLATIONS
-from .MaschineMode import MaschineMode, find_drum_device
+from ._base import MaschineMode, find_drum_device
+from ..MIDI_Map import AUTO_NAME, DEFAULT_DRUM_COLOR, PAD_MODE, PAD_TRANSLATIONS
 
 # import re
 # from itertools import imap

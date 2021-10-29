@@ -1,7 +1,7 @@
 from _Framework.InputControlElement import MIDI_NOTE_OFF_STATUS, MIDI_NOTE_ON_STATUS
 
-from .MIDI_Map import toHSB, PColor, CLIP_MODE
-from .MaschineMode import MaschineMode
+from ._base import MaschineMode
+from ..MIDI_Map import toHSB, PColor, CLIP_MODE
 
 # import Live
 # from _Framework.SubjectSlot import subject_slot

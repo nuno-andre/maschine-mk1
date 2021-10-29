@@ -1,13 +1,11 @@
 import Live
 from _Framework.SubjectSlot import subject_slot
-from _Framework.InputControlElement import (
-    MIDI_NOTE_OFF_STATUS, MIDI_NOTE_ON_STATUS,
-)
+from _Framework.InputControlElement import MIDI_NOTE_OFF_STATUS, MIDI_NOTE_ON_STATUS
 from _Framework.DeviceBankRegistry import DeviceBankRegistry
 from _Generic.Devices import parameter_banks, parameter_bank_names
 
-from .MaschineMode import MaschineMode
-from .MIDI_Map import PColor, CONTROL_MODE, SENDS
+from ._base import MaschineMode
+from ..MIDI_Map import PColor, CONTROL_MODE, SENDS
 
 # from _Framework.ButtonElement import ButtonElement
 # from _Framework.InputControlElement import *

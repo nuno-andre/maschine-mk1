@@ -119,7 +119,7 @@ class MidiEditSection(CompoundComponent):
             self._split_value = 4
             self._vel_fade = 0.0
             self._gate = 1.0
-            self.canonical_parent.timed_message(2, 'SPLIT:' + str(self._split_value))
+            self.canonical_parent.timed_message(2, f'SPLIT:{self._split_value}')
 
     @subject_slot('value')
     def _do_edit_button(self, value):

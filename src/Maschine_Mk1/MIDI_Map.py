@@ -227,7 +227,7 @@ SCALES = (
     PadScale('3rd (C,E,G#)', (0, 4, 8)),
     PadScale('4th (C,F,A#)', (0, 5, 10)),
     PadScale('5th', (0, 7)),
-    PadScale('Octave', tuple([0])),
+    PadScale('Octave', (0,)),
 )
 PADCHANNEL = 0
 DRUM_PADS = (-1, 12, 13, 14, 15, 8, 9, 10, 11, 4, 5, 6, 7, 0, 1, 2, 3)

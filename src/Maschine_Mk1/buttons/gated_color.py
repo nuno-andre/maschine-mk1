@@ -15,7 +15,7 @@ class GatedColorButton(ButtonElement):
     __module__ = __name__
 
     def __init__(self, is_momentary, midi_type, identifier, hue):
-        ButtonElement.__init__(self, is_momentary, midi_type, 0, identifier)
+        super().__init__(is_momentary, midi_type, 0, identifier)
         self._msg_identifier = identifier
         self.hue = hue
         self.last_value = 0

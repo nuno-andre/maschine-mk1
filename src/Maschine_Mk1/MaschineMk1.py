@@ -5,10 +5,9 @@ from _Framework.ButtonElement import ButtonElement
 
 from .MIDI_Map import debug_out
 from .KnobSection import KnobSection
-from .PadButton import PadButton
-from .MonoGatedButton import MonoGatedButton
 from .MonoNavSection import MonoNavSection
 from .Maschine import Maschine
+from .buttons import MonoGatedButton, PadButton
 
 # import time
 # import Live

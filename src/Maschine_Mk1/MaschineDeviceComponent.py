@@ -151,4 +151,4 @@ class MaschineDeviceComponent(DeviceComponent):
             for control in self._parameter_controls:
                 self.touch_mode and control.remove_value_listener(self._clear_param)
 
-        DeviceComponent.disconnect(self)
+        super().disconnect(self)

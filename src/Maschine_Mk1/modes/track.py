@@ -2,8 +2,8 @@ import Live
 from _Framework.InputControlElement import MIDI_NOTE_OFF_STATUS, MIDI_NOTE_ON_STATUS
 from _Framework.ButtonElement import ButtonElement
 
-from .MIDI_Map import arm_exclusive, PColor, OFF_COLOR
-from .MaschineMode import MaschineMode
+from ._base import MaschineMode
+from ..MIDI_Map import arm_exclusive, PColor, OFF_COLOR
 
 # from _Framework.ControlSurface import ControlSurface, _scheduled_method
 # from _Framework.InputControlElement import *

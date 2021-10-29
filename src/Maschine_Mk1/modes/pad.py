@@ -3,12 +3,12 @@ from _Framework.InputControlElement import MIDI_CC_TYPE, MIDI_NOTE_OFF_STATUS, M
 from _Framework.SubjectSlot import subject_slot
 from _Framework.SliderElement import SliderElement
 
-from .MIDI_Map import (
+from ._base import MaschineMode, find_drum_device
+from ..MIDI_Map import (
     BASE_NOTE, KEY_COLOR_MAP, KEY_COLOR_MODES_STRINGS, INTERVAL_COLOR_MAP,
     ND_BASE_OTHER, ND_KEYBOARD1, PAD_MODE, REL_KNOB_DOWN, SCALES,
 )
-from .PadScale import PadScale
-from .MaschineMode import MaschineMode, find_drum_device
+from ..PadScale import PadScale
 
 # import Live
 # from _Framework.InputControlElement import *

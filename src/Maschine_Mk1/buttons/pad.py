@@ -1,7 +1,7 @@
 from _Framework.ButtonElement import ButtonElement
 from _Framework.InputControlElement import MIDI_NOTE_ON_STATUS, MIDI_NOTE_TYPE
 
-from .MIDI_Map import CLIPNOTEMAP, NON_FEEDBACK_CHANNEL, OFF_COLOR
+from ..MIDI_Map import CLIPNOTEMAP, NON_FEEDBACK_CHANNEL, OFF_COLOR
 
 # import time
 # import Live
@@ -11,7 +11,8 @@ from .MIDI_Map import CLIPNOTEMAP, NON_FEEDBACK_CHANNEL, OFF_COLOR
 
 
 class PadButton(ButtonElement):
-    """ Colored Maschine Pads """
+    """Colored Maschine Pads.
+    """
     __module__ = __name__
 
     def __init__(self, is_momentary, channel, row_index, column_index):

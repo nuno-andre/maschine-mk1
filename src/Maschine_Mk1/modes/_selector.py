@@ -4,18 +4,23 @@ from _Framework.CompoundComponent import CompoundComponent
 from _Framework.InputControlElement import MIDI_CC_TYPE
 from _Framework.SubjectSlot import subject_slot
 
-from .StateButton import StateButton
-from .SceneMode import SceneMode
-from .DrumMode import DrumMode
-from .PadMode import PadMode
-from .ControlMode import ControlMode
-from .TrackModMode import (
-    TrackAssign, TrackArmMode, TrackMuteMode, TrackSelectMode,
-    TrackSoloMode, TrackStopMode, TrackXFadeMode,
+from .color_select import MaschineColorSelectMode
+from .control import ControlMode
+from .drum import DrumMode
+from .pad import PadMode
+from .scene import SceneMode
+from .studio_clip import StudioClipMode
+from .track import (
+    TrackAssign,
+    TrackArmMode,
+    TrackMuteMode,
+    TrackSelectMode,
+    TrackSoloMode,
+    TrackStopMode,
+    TrackXFadeMode,
 )
-from .MaschineColorSelectMode import MaschineColorSelectMode
-from .MaschineMode import StudioClipMode
-from .MIDI_Map import vindexof
+from ..MIDI_Map import vindexof
+from ..buttons import StateButton
 
 # import Live
 # from _Framework.InputControlElement import *
@@ -26,7 +31,7 @@ from .MIDI_Map import vindexof
 
 
 class ModeSelector(CompoundComponent):
-    """Class Handling the switch between Modes.
+    """Class handling the switch between Modes.
     """
     __module__ = __name__
     mikro_shift = False

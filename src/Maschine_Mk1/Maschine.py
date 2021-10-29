@@ -23,13 +23,13 @@ from .MIDI_Map import (
 from .MaschineSessionComponent import MaschineSessionComponent
 from .MaschineDeviceComponent import MaschineDeviceComponent
 from .MaschineTransport import MaschineTransport
-from .ModeSelector import ModeSelector
-from .StateButton import StateButton, ToggleButton
 from .NoteRepeatComponent import NoteRepeatComponent
 from .MaschineMixerComponent import MaschineMixerComponent
 from .EditSection import EditSection
 from .AudioClipEditComponent import AudioClipEditComponent
 from .MidiEditSection import MidiEditSection
+from .modes import ModeSelector
+from .buttons import StateButton, ToggleButton
 
 # from functools import partial
 # import MidiRemoteScript

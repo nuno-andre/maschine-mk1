@@ -7,7 +7,7 @@ from _Framework.ButtonElement import ButtonElement
 from _Framework.InputControlElement import MIDI_CC_TYPE
 from _Framework.SliderElement import SliderElement
 
-from .StateButton import StateButton
+from .buttons import StateButton
 from .MIDI_Map import (
     arm_exclusive, track_index, vindexof,
     CLIP_MODE, CONTROL_MODE, PAD_MODE, SCENE_MODE,
