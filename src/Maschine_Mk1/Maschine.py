@@ -148,30 +148,15 @@ class Maschine(ControlSurface):
         pref_dict = self._pref_dict
         if 'step_advance' in pref_dict:
             self._session.set_step_advance(pref_dict['step_advance'])
-        if 'solo_exclusive' in pref_dict:
-            self._modeselect.set_solo_exclusive(pref_dict['solo_exclusive'])
-        else:
-            self._modeselect.set_solo_exclusive(True)
-        if 'arm_exclusive' in pref_dict:
-            self._modeselect.set_arm_exclusive(pref_dict['arm_exclusive'])
-        else:
-            self._modeselect.set_arm_exclusive(True)
-        if 'quantize_val' in pref_dict:
-            self._editsection.quantize = pref_dict['quantize_val']
-        else:
-            self._editsection.quantize = 5
-        if 'initial_cliplen' in pref_dict:
-            self._editsection.initial_clip_len = pref_dict['initial_cliplen']
-        else:
-            self._editsection.initial_clip_len = 4.0
-        if 'auto_arm_sel_track' in pref_dict:
-            self.arm_selected_track = pref_dict['auto_arm_sel_track']
-        else:
-            self.arm_selected_track = False
-        if 'note_color_mode' in pref_dict:
-            self._modeselect._pad_mode._note_display_mode = pref_dict['note_color_mode']
-        else:
-            self._modeselect._pad_mode._note_display_mode = ND_KEYBOARD1
+
+
+        self._modeselect.set_solo_exclusive(pref_dict.get('solo_exclusive', True))
+        self._modeselect.set_arm_exclusive(pref_dict.get('arm_exclusive', True))
+        self._editsection.quantize = pref_dict.get('quantize_val', 5)
+        self._editsection.initial_clip_len = pref_dict.get('initial_cliplen', 4.0)
+        self.arm_selected_track = pref_dict.get('auto_arm_sel_track', False)
+        self._modeselect._pad_mode._note_display_mode = pref_dict.get('note_color_mode', ND_KEYBOARD1)
+
         self._pref_dict['note_color_mode'] = self._modeselect._pad_mode._note_display_mode
         self.set_sel_arm_button.send_value(self.arm_selected_track and 127 or 0, True)
         self._note_repeater.recall_values(self._pref_dict)
@@ -216,7 +201,7 @@ class Maschine(ControlSurface):
 
     def toggle_nav_mode(self):
         self._session.switch_step_advance()
-        self.show_message(' View Navigation in steps of ' + str(self._session.get_step_advance()))
+        self.show_message(f' View Navigation in steps of {self._session.get_step_advance()}')
 
     def _set_up_session(self, mode_selector):
         is_momentary = True
@@ -446,10 +431,10 @@ class Maschine(ControlSurface):
             self.redo_state = self.song().can_redo
         if self.song().can_undo != self.undo_state:
             self.undo_state = self.song().can_undo
-            self._undo_button.send_value(self.undo_state == 1 and 127 or 0)
+            self._undo_button.send_value(self.undo_state == 1 * 127)
         if self.song().can_redo != self.redo_state:
             self.redo_state = self.song().can_redo
-            self._redo_button.send_value(self.redo_state == 1 and 127 or 0)
+            self._redo_button.send_value(self.redo_state == 1 * 127)
 
     def adjust_loop_start(self, delta):
         loopval = self.song().loop_start
@@ -574,8 +559,9 @@ class Maschine(ControlSurface):
             self.send_slider_index += 1
             if self.send_slider_index >= nr_of_tracks:
                 self.send_slider_index = 0
-            self.show_message(' Set Send ' + str(SENDS[self.send_slider_index]))
-            self.timed_message(2, ' Set Send ' + str(SENDS[self.send_slider_index]))
+            _send = SENDS[self.send_slider_index]
+            self.show_message(f' Set Send {_send}')
+            self.timed_message(2, f' Set Send {_send}')
             if prev != self.send_slider_index:
                 for track in range(8):
                     strip = self._mixer.channel_strip(track)
@@ -595,7 +581,7 @@ class Maschine(ControlSurface):
                 direction = Live.Application.Application.View.NavDirection.left
                 self.application().view.scroll_view(direction, 'Session', True)
                 track = self.song().view.selected_track
-                self.timed_message(2, 'T:' + track.name, False)
+                self.timed_message(2, f'T:{track.name}', False)
                 if self.arm_selected_track and track.can_be_armed:
                     arm_exclusive(self.song(), track)
 
@@ -607,7 +593,7 @@ class Maschine(ControlSurface):
                 direction = Live.Application.Application.View.NavDirection.right
                 self.application().view.scroll_view(direction, 'Session', True)
                 track = self.song().view.selected_track
-                self.timed_message(2, 'T:' + track.name, False)
+                self.timed_message(2, f'T:{track.name}', False)
                 if self.arm_selected_track and track.can_be_armed:
                     arm_exclusive(self.song(), track)
 
@@ -659,8 +645,9 @@ class Maschine(ControlSurface):
         assert value in range(128)
         if value != 0:
             self.nav_index = (self.nav_index + 1) % len(VIEWS_ALL)
-            self.application().view.focus_view(VIEWS_ALL[self.nav_index])
-            self.show_message('Focus on : ' + str(VIEWS_ALL[self.nav_index]))
+            _focus = VIEWS_ALL[self.nav_index]
+            self.application().view.focus_view(_focus)
+            self.show_message(f'Focus on : {_focus}')
 
     def focus_clip_detail(self):
         self.application().view.focus_view('Detail/Clip')
@@ -761,28 +748,31 @@ class Maschine(ControlSurface):
     def update_bank_display(self):
         if USE_DISPLAY:
             name, bank = self._device._current_bank_details()
+
             if self._display_device_param:
                 prms = len(bank)
                 d1 = ''
                 for i in range(4):
                     parm = bank[i]
+                    _sep = '|' if i < 3 else ''
                     if parm:
                         name = parm.name
-                        d1 += name[:6] + (i < 3 and '|' or '')
+                        d1 += f'{name[:6]}{_sep}'
                     else:
-                        d1 += '      ' + (i < 3 and '|' or '')
-
+                        d1 += f'      {_sep}'
                 self.send_to_display(d1, 2)
+
                 d1 = ''
                 for i in range(4):
                     parm = bank[(i + 4)]
+                    _sep = '|' if i < 3 else ''
                     if parm:
                         name = parm.name
-                        d1 += name[:6] + (i < 3 and '|' or '')
+                        d1 += f'{name[:6]}{_sep}'
                     else:
-                        d1 += '      ' + (i < 3 and '|' or '')
-
+                        d1 += f'      {_sep}'
                 self.send_to_display(d1, 4)
+
             else:
                 self.timed_message(2, f'Bank: {name}')
 
