@@ -43,10 +43,11 @@ class DrumPad:
         button._pad = None
 
     def send_color(self):
-        if self.selected:
-            self._button.send_color_direct(self._color[1])
-        else:
-            self._button.send_color_direct(self._color[0])
+        if self._button is not None:
+            if self.selected:
+                self._button.send_color_direct(self._color[1])
+            else:
+                self._button.send_color_direct(self._color[0])
 
     def get_color(self):
         return self._color[1 if self.selected else 0]

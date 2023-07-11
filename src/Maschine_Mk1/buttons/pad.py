@@ -75,7 +75,7 @@ class PadButton(ButtonElement):
             self.send_c_midi(value, True)
 
     def send_color_direct(self, color):
-        scolor = color == None and OFF_COLOR or color
+        scolor = (color == None or len(color) < 4) and OFF_COLOR or color
         self.send_c_midi(scolor[3])
 
     def send_c_midi(self, value, force=False):
