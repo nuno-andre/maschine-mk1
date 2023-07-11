@@ -212,13 +212,8 @@ class PadMode(MaschineMode):
                 if button:
                     note_index = (3 - row) * 4 + column
                     scale_index = note_index % scale_len
-                    octave_offset = note_index / scale_len
-                    note_value = (
-                        self._scale.notevalues[scale_index]
-                        + self._base_note
-                        + octave * 12
-                        + octave_offset * 12
-                    )
+                    octave_offset = int(note_index / scale_len)
+                    note_value = int(self._scale.notevalues[scale_index] + self._base_note + octave * 12 + octave_offset * 12)
                     button.reset()
                     button.send_color_direct(self.get_color_by_note_mode(note_value, False))
 
@@ -259,8 +254,8 @@ class PadMode(MaschineMode):
                 if button:
                     note_index = (3 - row) * 4 + column
                     scale_index = note_index % scale_len
-                    octave_offset = note_index / scale_len
-                    note_value = scale.notevalues[scale_index] + self._base_note + octave * 12 + octave_offset * 12
+                    octave_offset = int(note_index / scale_len)
+                    note_value = int(self._scale.notevalues[scale_index] + self._base_note + octave * 12 + octave_offset * 12)
                     if note_value < 128:
                         last_note_val = note_value
                     elif last_note_val != None:
@@ -321,9 +316,9 @@ class PadMode(MaschineMode):
             if button:
                 note_index = (3 - row) * 4 + column
                 scale_index = note_index % scale_len
-                octave_offset = note_index / scale_len
+                octave_offset = int(note_index / scale_len)
                 button.send_value(0, True)
-                note_value = self._scale.notevalues[scale_index] + self._base_note + octave * 12 + octave_offset * 12
+                note_value = int(self._scale.notevalues[scale_index] + self._base_note + octave * 12 + octave_offset * 12)
                 button.send_color_direct(self.get_color_by_note_mode(note_value, False))
                 button.set_to_notemode(True)
                 button.remove_value_listener(self._action_clear)
