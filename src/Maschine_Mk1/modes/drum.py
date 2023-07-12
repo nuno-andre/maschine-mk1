@@ -138,16 +138,18 @@ class DrumMode(MaschineMode):
         return in_notes
 
     def _update_pad_edit_color(self, pad, in_notes):
-        if pad._pad.note in in_notes:
-            pad._button.send_color_direct(pad._color[1])
-        else:
-            pad._button.send_color_direct(pad._color[0])
+        if pad._button is not None:
+            if pad._pad.note in in_notes:
+                pad._button.send_color_direct(pad._color[1])
+            else:
+                pad._button.send_color_direct(pad._color[0])
 
     def _update_pad_edit_mono(self, pad, in_notes):
-        if pad._pad.note in in_notes:
-            pad._button.send_value(127, True)
-        else:
-            pad._button.send_value(0, True)
+        if pad._button is not None:
+            if pad._pad.note in in_notes:
+                pad._button.send_value(127, True)
+            else:
+                pad._button.send_value(0, True)
 
     @subject_slot('notes')
     def _on_notes_changed(self):
@@ -216,7 +218,8 @@ class DrumMode(MaschineMode):
     def refresh(self):
         if self._active:
             for dpad in self._pads:
-                dpad._button.reset()
+                if dpad._button is not None:
+                    dpad._button.reset()
                 dpad.send_color()
 
     def assign_pads(self):
@@ -242,11 +245,11 @@ class DrumMode(MaschineMode):
                 dpad.set_color(((0, 0, 40), (0, 0, 40)))
                 dpad.set_pad(None)
 
-            for button, (column, row) in self.canonical_parent._bmatrix.iterbuttons():
-                pad_index = (3 - row) * 4 + column
-                self._pads[pad_index].set_button(button)
-                if not self._in_edit_mode:
-                    self._pads[pad_index].send_color()
+        for button, (column, row) in self.canonical_parent._bmatrix.iterbuttons():
+            pad_index = (3 - row) * 4 + column
+            self._pads[pad_index].set_button(button)
+            if not self._in_edit_mode:
+                self._pads[pad_index].send_color()
 
     def assign_track_device(self):
         if self.device and self.device.view:

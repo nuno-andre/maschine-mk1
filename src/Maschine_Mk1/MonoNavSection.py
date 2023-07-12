@@ -35,7 +35,7 @@ class MonoNavSection(CompoundComponent):
         self._do_right_knob.subject = self.swing_knob
         self._do_mode_button.subject = self.mode_button
         self._do_alt_button.subject = self.alt_button
-        self._mode = MODE_ADJUST
+        self._set_mode(MODE_ADJUST)
         self._alt_down = False
 
     def do_message(self, msg, statusbarmsg=None):
@@ -141,13 +141,19 @@ class MonoNavSection(CompoundComponent):
             elif self._alt_down:
                 self.canonical_parent._do_focus_navigate(1)
             elif self._mode == MODE_ADJUST:
-                self._mode = MODE_NAV
-                self.do_message('Master Knobs control navigation')
-                self.mode_button.send_value(1, True)
+                self._set_mode(MODE_NAV)
             elif self._mode == MODE_NAV:
-                self._mode = MODE_ADJUST
-                self.do_message('Master Knobs control Volume | Tempo | Quantization')
-                self.mode_button.send_value(0, True)
+                self._set_mode(MODE_ADJUST)
+
+    def _set_mode(self, value):
+        self._mode = value
+
+        if self._mode == MODE_NAV:
+            self.do_message('Master Knobs control navigation')
+            self.mode_button.send_value(1, True)
+        elif self._mode == MODE_ADJUST:
+            self.do_message('Master Knobs control Volume | Tempo | Quantization')
+            self.mode_button.send_value(0, True)
 
     @subject_slot('value')
     def _do_alt_button(self, value):
