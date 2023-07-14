@@ -431,10 +431,10 @@ class Maschine(ControlSurface):
             self.redo_state = self.song().can_redo
         if self.song().can_undo != self.undo_state:
             self.undo_state = self.song().can_undo
-            self._undo_button.send_value(self.undo_state == 1 * 127)
+            self._undo_button.send_value((self.undo_state == 1) * 127)
         if self.song().can_redo != self.redo_state:
             self.redo_state = self.song().can_redo
-            self._redo_button.send_value(self.redo_state == 1 * 127)
+            self._redo_button.send_value((self.redo_state == 1) * 127)
 
     def adjust_loop_start(self, delta):
         loopval = self.song().loop_start
