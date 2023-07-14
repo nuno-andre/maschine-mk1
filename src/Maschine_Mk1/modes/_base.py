@@ -11,12 +11,22 @@ from ..MIDI_Map import OTHER_MODE
 # from MIDI_Map import *
 # from PadScale import *
 # from MaschineSessionComponent import MaschineSessionComponent
+import Live
+from _Framework.Util import find_if
 
+def find_drum_group_device(track_or_chain):
+    instrument = find_if(lambda d: d.type == Live.Device.DeviceType.instrument, track_or_chain.devices)
+    if instrument:
+        if instrument.can_have_drum_pads:
+            return instrument
+        if instrument.can_have_chains:
+            return find_if(bool, map(find_drum_group_device, instrument.chains))
 
 def find_drum_device(track):
-    for device in track.devices:
-        if device.can_have_drum_pads:
-            return device
+    # for device in track.devices:
+    #     if device.can_have_drum_pads:
+    #         return device
+    return find_drum_group_device(track)
 
 
 class MaschineMode(CompoundComponent):
