@@ -609,8 +609,7 @@ class Maschine(ControlSurface):
 
     @subject_slot('value')
     def _nav_value_left(self, value):
-        if not self._device_nav_button_left != None:
-            raise AssertionError
+        if self._device_nav_button_left != None:
             assert value in range(128)
             modifier_pressed = True
             if value != 0 and (
