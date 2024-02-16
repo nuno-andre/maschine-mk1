@@ -85,7 +85,7 @@ class TrackAssign:
         if diff < 0 and self.track_offset > 0:
             self.track_offset += diff
             return True
-        if diff > 0 and new_last_track < nr_of_tracks:
+        if diff > 0 and new_last_track <= nr_of_tracks:
             self.track_offset += diff
             return True
         return False
@@ -111,8 +111,8 @@ class TrackModMode(MaschineMode):
             self._free_listeners()
             self._assign(False)
             offset = self._track_assign.track_offset + 1
-            self.canonical_parent.show_message(f'Track Mode assigned to Tracks {offset} to {16 + offset}')
-            self.canonical_parent.timed_message(2, f'Tracks Mode to:{offset} to {16 + offset}')
+            self.canonical_parent.show_message(f'Track Mode assigned to Tracks {offset} to {15 + offset}')
+            self.canonical_parent.timed_message(2, f'Tracks Mode to:{offset} to {15 + offset}')
 
     def unbind_listener(self, track_element):
         pass
