@@ -72,7 +72,7 @@ class DisplayTask:
     def tick(self):
         if not self._hold and self._wait > 0:
             self._wait -= 1
-            if self._wait == 0 and self._func != None:
+            if self._wait == 0 and self._func is not None:
                 self._func(self._grid)
 
 
@@ -577,25 +577,25 @@ class Maschine(ControlSurface):
     def _a_trk_left(self, value):
         if value not in range(128):
             raise ValueError(f'value not between 0 and 127: {value}')
-            if value != 0 and self.application().view.is_view_visible('Session'):
-                direction = Live.Application.Application.View.NavDirection.left
-                self.application().view.scroll_view(direction, 'Session', True)
-                track = self.song().view.selected_track
-                self.timed_message(2, f'T:{track.name}', False)
-                if self.arm_selected_track and track.can_be_armed:
-                    arm_exclusive(self.song(), track)
+        if value != 0 and self.application().view.is_view_visible('Session'):
+            direction = Live.Application.Application.View.NavDirection.left
+            self.application().view.scroll_view(direction, 'Session', True)
+            track = self.song().view.selected_track
+            self.timed_message(2, f'T:{track.name}', False)
+            if self.arm_selected_track and track.can_be_armed:
+                arm_exclusive(self.song(), track)
 
     @subject_slot('value')
     def _a_trk_right(self, value):
         if value not in range(128):
             raise ValueError(f'value not between 0 and 127: {value}')
-            if value != 0 and self.application().view.is_view_visible('Session'):
-                direction = Live.Application.Application.View.NavDirection.right
-                self.application().view.scroll_view(direction, 'Session', True)
-                track = self.song().view.selected_track
-                self.timed_message(2, f'T:{track.name}', False)
-                if self.arm_selected_track and track.can_be_armed:
-                    arm_exclusive(self.song(), track)
+        if value != 0 and self.application().view.is_view_visible('Session'):
+            direction = Live.Application.Application.View.NavDirection.right
+            self.application().view.scroll_view(direction, 'Session', True)
+            track = self.song().view.selected_track
+            self.timed_message(2, f'T:{track.name}', False)
+            if self.arm_selected_track and track.can_be_armed:
+                arm_exclusive(self.song(), track)
 
     @subject_slot('value')
     def _a_sel_arm(self, value):
