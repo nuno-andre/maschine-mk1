@@ -91,7 +91,7 @@ class TrackAssign:
         return False
 
     def ajust_track_offest(self, nr_of_tracks):
-        self.track_offset = min(self.track_offset, max(0, nr_of_tracks - 16 - 1))
+        self.track_offset = min(self.track_offset, max(0, nr_of_tracks - 16))
 
 
 class TrackModMode(MaschineMode):
